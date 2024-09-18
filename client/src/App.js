@@ -2,7 +2,7 @@ import TableContact from "./layout/TableContact/TableContact";
 import React,{useState} from "react";
 import FormContact from "./layout/Formcontact/FormContact";
 import axios from 'axios';
-const baseApiUrl = "http://localhost:5000/api/ContactManagement";
+const baseApiUrl = process.env.REACT_APP_API_URL;
 
 const App = () => {
   const url = `${baseApiUrl}/contacts`
