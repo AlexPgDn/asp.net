@@ -1,39 +1,32 @@
 import TableContact from "./layout/TableContact/TableContact";
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import FormContact from "./layout/Formcontact/FormContact";
 import axios from 'axios';
 const baseApiUrl = process.env.REACT_APP_API_URL;
 
 const App = () => {
-  const url = `${baseApiUrl}/contacts`
-  console.log(url);
-  axios
-  .get(url)
-  .then(
-    res => console.log(res.data)
-  ) 
-  const [contacts,setContacts] = useState(
-    [
+  const [contacts,setContacts] = useState([]);
 
-      {id: 1, name: "Name", email: "@gmail.com"},
-      {id: 2, name: "Name", email: "@gmail.com"},
-      {id: 3, name: "Name", email: "@gmail.com"},
-      {id: 44, name: "Name", email: "@gmail.com"},
-    ]
-  );
+  const url = `${baseApiUrl}/contacts`;
+  useEffect(()=>{
+    axios.get(url).then(
+      res => setContacts(res.data)
+    );},[])
+
+    axios.get(url).then(
+      res => console.log(res.data)
+    );
 
   const addContact = (contactName,contactEmail) => {
     const maxId = contacts.length === 0 ? 0 : Math.max(...contacts.map(x => x.id));
     const item = 
       { id: maxId + 1,
         name: contactName, 
-        email: contactEmail}
+        eMail: contactEmail}
         setContacts([...contacts,item])
   }
   const deleteContact = (id) => {
     setContacts(contacts.filter(item => item.id !== id));
-
-     
   }
 
   return (

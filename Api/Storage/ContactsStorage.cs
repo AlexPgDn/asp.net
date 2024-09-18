@@ -13,7 +13,7 @@ public class ContactsStorage
 
                     Id = i,
                     Name = $"FullName_{i}",
-                    EMail = $"{Guid.NewGuid().ToString().Substring(0,5)}_{i}@insane.com" 
+                    Email = $"{Guid.NewGuid().ToString().Substring(0,5)}_{i}@insane.com" 
             });
         }
 
@@ -60,7 +60,7 @@ public class ContactsStorage
                 contact = Contacts[i];
                 if (!String.IsNullOrEmpty(contactDto.EMail))
                 {
-                    contact.EMail = contactDto.EMail;
+                    contact.Email = contactDto.EMail;
                 }
                 if (!String.IsNullOrEmpty(contactDto.Name))
                 {
