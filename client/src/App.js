@@ -18,8 +18,10 @@ const App = () => {
     const item = 
       { id: maxId + 1,
         name: contactName, 
-        email: contactEmail}
-        setContacts([...contacts,item])
+        email: contactEmail};
+
+        axios.post(`${baseApiUrl}/contacts`,item);
+        setContacts([...contacts,item]);
   }
   const deleteContact = (id) => {
     setContacts(contacts.filter(item => item.id !== id));
