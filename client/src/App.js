@@ -24,6 +24,7 @@ const App = () => {
         setContacts([...contacts,item]);
   }
   const deleteContact = (id) => {
+    axios.delete(`${baseApiUrl}/contacts/${id}`)
     setContacts(contacts.filter(item => item.id !== id));
   }
 
