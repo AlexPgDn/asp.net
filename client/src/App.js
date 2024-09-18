@@ -13,16 +13,12 @@ const App = () => {
       res => setContacts(res.data)
     );},[])
 
-    axios.get(url).then(
-      res => console.log(res.data)
-    );
-
   const addContact = (contactName,contactEmail) => {
     const maxId = contacts.length === 0 ? 0 : Math.max(...contacts.map(x => x.id));
     const item = 
       { id: maxId + 1,
         name: contactName, 
-        eMail: contactEmail}
+        email: contactEmail}
         setContacts([...contacts,item])
   }
   const deleteContact = (id) => {
