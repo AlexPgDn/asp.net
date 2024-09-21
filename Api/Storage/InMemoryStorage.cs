@@ -7,16 +7,6 @@ public class InMemoryStorage : IStorage
 
         this.Contacts = new List<Contact>();
 
-        for(int i = 0; i<=5;i++){
-
-            this.Contacts.Add(new Contact(){
-
-                    Id = i,
-                    Name = $"FullName_{i}",
-                    Email = $"{Guid.NewGuid().ToString().Substring(0,5)}_{i}@insane.com" 
-            });
-        }
-
     }
 
     public List<Contact> GetContacts(){

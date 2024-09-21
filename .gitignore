@@ -510,3 +510,4 @@ $RECYCLE.BIN/
 appsettings.Development.json
 appsettings.json
 settings.json
+.vscode

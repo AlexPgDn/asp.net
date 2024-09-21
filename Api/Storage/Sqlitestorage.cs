@@ -2,10 +2,10 @@
 using System.Text;
 using Microsoft.Data.Sqlite;
 
-public class Sqlitestorage : IStorage
+public class SqliteStorage : IStorage
 {
     private readonly string connectionString ;
-    public Sqlitestorage(string connectionString){
+    public SqliteStorage(string connectionString){
             this.connectionString = connectionString;
     }
     public bool Add(Contact contact)
