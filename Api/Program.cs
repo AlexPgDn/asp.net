@@ -10,14 +10,15 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IStorage, Sqlitestorage>();
+var stringconnection = builder.Configuration.GetConnectionString("SqliteStringConnection");
+builder.Services.AddSingleton<IStorage>(new Sqlitestorage(stringconnection));
 
 builder.Services.AddCors(opt => 
 opt.AddPolicy("CorsPolicy", policy =>
     {
         policy.AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins(args[0]);
+        .WithOrigins(builder.Configuration["client"]);
 
     }
 ));

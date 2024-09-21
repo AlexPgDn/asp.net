@@ -4,7 +4,10 @@ using Microsoft.Data.Sqlite;
 
 public class Sqlitestorage : IStorage
 {
-    string connectionString = "Data Source = contacts.db";
+    private readonly string connectionString ;
+    public Sqlitestorage(string connectionString){
+            this.connectionString = connectionString;
+    }
     public bool Add(Contact contact)
     {
         using var connection  = new SqliteConnection(connectionString);
@@ -25,6 +28,7 @@ public class Sqlitestorage : IStorage
 
         var command = connection.CreateCommand();
         command.CommandText = $"SELECT * from contacts WHERE id = {id}";
+        
         using var reader = command.ExecuteReader();
         Contact contact = new Contact();
         while(reader.Read()){
@@ -37,7 +41,7 @@ public class Sqlitestorage : IStorage
 
     public List<Contact> GetContacts()
     {
-        var contact = new List<Contact>();
+        var contacts = new List<Contact>();
 
         using var connection  = new SqliteConnection(connectionString);
         connection.Open();
@@ -48,22 +52,37 @@ public class Sqlitestorage : IStorage
 
         using var reader = command.ExecuteReader();
         while(reader.Read()){
-            contact.Add(new Contact(){
+            contacts.Add(new Contact(){
                 Id = reader.GetInt32(0),
                 Name = reader.GetString(1),
                 Email = reader.GetString(2)
             });
         }
-        return contact;
+        return contacts;
     }
 
     public bool Remove(int id)
     {
-        throw new NotImplementedException();
+       using var connection  = new SqliteConnection(connectionString);
+       connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = $"DELETE  from contacts WHERE id = {id}";
+        return command.ExecuteNonQuery() > 0;
     }
 
     public bool Update(ContactDto contactDto, int id)
     {
-        throw new NotImplementedException();
+        using var connection  = new SqliteConnection(connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+
+        command.CommandText = @$"
+        UPDATE contacts
+        SET name = '{contactDto.Name}', email = '{contactDto.EMail}'
+        WHERE id = {id}";
+
+        return command.ExecuteNonQuery() > 0;
     }
 }
