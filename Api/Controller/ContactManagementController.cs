@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 public class ContactManagementController : FundamentalController
 {
-    private readonly ContactsStorage storage;
+    private readonly IStorage storage;
 
-    public ContactManagementController(ContactsStorage storage){
+    public ContactManagementController(IStorage storage){
         
         this.storage = storage;
     }
@@ -20,7 +20,7 @@ public class ContactManagementController : FundamentalController
     [HttpGet("contacts")]
     public ActionResult<List<Contact>> GetContacts(){
 
-        return Ok(storage.Get());
+        return Ok(storage.GetContacts());
     }
 
     [HttpDelete("contacts/{id}")]

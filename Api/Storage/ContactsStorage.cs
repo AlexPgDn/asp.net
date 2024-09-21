@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http.Features;
 
-public class ContactsStorage
+public class InMemoryStorage : IStorage
 {
     private List<Contact> Contacts {get;set;}
-    public ContactsStorage(){
+    public InMemoryStorage(){
 
         this.Contacts = new List<Contact>();
 
@@ -19,7 +19,7 @@ public class ContactsStorage
 
     }
 
-    public List<Contact> Get(){
+    public List<Contact> GetContacts(){
         
         return this.Contacts;
 

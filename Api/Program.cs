@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ContactsStorage>();
+builder.Services.AddSingleton<IStorage,InMemoryStorage>();
 
 builder.Services.AddCors(opt => 
 opt.AddPolicy("CorsPolicy", policy =>
