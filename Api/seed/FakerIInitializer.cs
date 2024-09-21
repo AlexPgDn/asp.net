@@ -38,10 +38,10 @@ public class FakerInitializer : IInitializer
 
                 command.CommandText = @$"
                 INSERT INTO contacts (name,email) VALUES
-                (@name,@email)";
-                command.Parameters.Clear();
-                command.Parameters.AddWithValue("name",item.Name);
-                command.Parameters.AddWithValue("email",item.Email);
+                ('{item.Name}','{item.Email}')";
+                /* command.Parameters.Clear();
+                command.Parameters.AddWithValue("@name",item.Name);
+                command.Parameters.AddWithValue("@email",item.Email); */
                 command.ExecuteNonQuery();
             }
 
