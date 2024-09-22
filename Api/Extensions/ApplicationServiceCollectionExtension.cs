@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 public static class ApplicationServiceCollectionExtension
@@ -17,7 +18,8 @@ public static class ApplicationServiceCollectionExtension
         services.AddControllers();
         
         var stringconnection = configuration.GetConnectionString("SqliteStringConnection");
-        services.AddSingleton<IStorage>(new SqliteStorage(stringconnection));
+        services.AddDbContext<SqlLiteDbContext>(opt => opt.UseSqlite(stringconnection));
+        services.AddScoped<IStorage,SqliteEfStorage>();
 
         services.AddCors(opt =>
         opt.AddPolicy("CorsPolicy", policy =>
