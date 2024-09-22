@@ -12,8 +12,8 @@ public class ContactManagementController : FundamentalController
 
     [HttpPost("contacts")]
     public IActionResult CreateContact([FromBody]Contact contact){
-        bool res = storage.Add(contact);
-        if (res) return Created("/contacts","success");
+        Contact res = storage.Add(contact);
+        if (contact != null) return Ok(contact);
         return Conflict("Trying to add existing contact");
     }
 

@@ -8,17 +8,18 @@ public class SqliteStorage : IStorage
     public SqliteStorage(string connectionString){
             this.connectionString = connectionString;
     }
-    public bool Add(Contact contact)
+    public Contact Add(Contact contact)
     {
         using var connection  = new SqliteConnection(connectionString);
         connection.Open();
 
         var command = connection.CreateCommand();
-        string sb = "INSERT INTO contacts (name,email) VALUES (@name, @email)";
+        string sb = @$"INSERT INTO contacts (name,email) VALUES ('{contact.Name}','{contact.Email}');
+        SELECT last_insert_rowid();";
         command.CommandText = sb;
-        command.Parameters.AddWithValue("@name",contact.Name);
-        command.Parameters.AddWithValue("@email",contact.Email);
-        return command.ExecuteNonQuery() > 0;
+        
+        contact.Id = Convert.ToInt32(command.ExecuteScalar());
+        return contact;
     }
 
     public Contact GetContactById(int id)

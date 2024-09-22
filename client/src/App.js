@@ -7,23 +7,21 @@ const baseApiUrl = process.env.REACT_APP_API_URL;
 const App = () => {
   const [contacts,setContacts] = useState([]);
 
-  const url = `${baseApiUrl}/contacts`;
   useEffect(()=>{
-    axios.get(url).then(
+    axios.get(`${baseApiUrl}/contacts`).then(
       res => setContacts(res.data)
     );},[])
 
   const addContact = (contactName,contactEmail) => {
-    const maxId = contacts.length === 0 ? 0 : Math.max(...contacts.map(x => x.id));
     const item = 
-      { id: maxId + 1,
-        name: contactName, 
+      { name: contactName, 
         email: contactEmail};
 
-        axios.post(`${baseApiUrl}/contacts`,item);
-        setContacts([...contacts,item]);
-  }
-  const deleteContact = (id) => {
+        axios.post(`${baseApiUrl}/contacts`,item).then(
+          response => setContacts([...contacts,response.data])
+        );}
+  
+        const deleteContact = (id) => {
     axios.delete(`${baseApiUrl}/contacts/${id}`)
     setContacts(contacts.filter(item => item.id !== id));
   }
