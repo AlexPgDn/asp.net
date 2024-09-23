@@ -1,5 +1,5 @@
 
-public class SqliteEfStorage : IStorage
+public class SqliteEfStorage : IPaginationStorage
 {
     private readonly SqlLiteDbContext context;
     public SqliteEfStorage (SqlLiteDbContext context){

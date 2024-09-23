@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 public class ContactManagementController : FundamentalController
 {
-    private readonly IStorage storage;
+    private readonly IPaginationStorage storage;
 
-    public ContactManagementController(IStorage storage){
+    public ContactManagementController(IPaginationStorage storage){
         
         this.storage = storage;
     }
@@ -38,7 +38,7 @@ public class ContactManagementController : FundamentalController
         if(res) return Ok();
         return Conflict("Trying to delete  not existing contact");
     }
-    [HttpGet("contact")]
+    [HttpGet("contact/{id}")]
     public ActionResult<Contact> GetContactThroughId(int id){
         if (storage.GetContactById(id) == null) return NotFound();
         return Ok(storage.GetContactById(id));
