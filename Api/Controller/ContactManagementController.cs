@@ -43,4 +43,18 @@ public class ContactManagementController : FundamentalController
         if (storage.GetContactById(id) == null) return NotFound();
         return Ok(storage.GetContactById(id));
     }
+    [HttpGet("contacts/page")]
+    public IActionResult GetContacts(int pageNumber = 1,int pageSize = 5){
+
+        var (contacts,total) = storage.GetContacts(pageNumber,pageSize);
+        var response = new{
+
+                Contacts = contacts,
+                TotalContacts = total,
+                CurrentPage = pageNumber,
+                PageSize = pageSize
+        };
+        return Ok(response);
+        
+    }
 }

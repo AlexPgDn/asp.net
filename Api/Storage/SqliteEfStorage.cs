@@ -1,7 +1,7 @@
 
-public class SqliteEfStorage : IPaginationStorage
+public class SqliteEfStorage : IStorage
 {
-    private readonly SqlLiteDbContext context;
+    protected readonly SqlLiteDbContext context;
     public SqliteEfStorage (SqlLiteDbContext context){
 
         this.context = context;
@@ -14,10 +14,7 @@ public class SqliteEfStorage : IPaginationStorage
         return contact;
     }
 
-    public Contact GetContactById(int id)
-    {
-        return context.Contacts.FirstOrDefault(x => x.Id == id);
-    }
+    
 
      public List<Contact>GetContacts(){
 

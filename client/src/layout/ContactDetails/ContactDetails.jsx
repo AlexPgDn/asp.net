@@ -26,7 +26,10 @@ const ContactDetails = (props) => {
     const handleRemove = () => {
         const url = `${baseApiUrl}/contacts/${id}`; 
         if(window.confirm("Are you sure?")){
-            axios.delete(url).then(navigate("/"))
+            axios.delete(url).then( () => {
+                props.onUpdate();
+                navigate("/")
+            })
             .catch(
                 console.log("Error")
             );
@@ -36,7 +39,10 @@ const ContactDetails = (props) => {
     const handleUpdate = () => {
         const url = `${baseApiUrl}/contacts/${id}`;
         axios.put(url, contact)
-        .then(navigate("/"))
+        .then( () => {
+            props.onUpdate();
+            navigate("/")
+        })
         .catch(console.log("Error"))
    
     }
